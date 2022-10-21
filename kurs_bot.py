@@ -31,15 +31,17 @@ def handle_text(message):
         currencyRUB = 'RUB'
         kursRUB = dict_result['rates'][currencyRUB]
         if message.text == '/Courses':
-            str_message = ''
+            str_message_1 = ''
+            str_message_1000 = ''
             for cur in ALL_currencys:
                 if cur != 'USD':
                     kurs2 = dict_result['rates'][cur]
                     kurs = kursRUB / kurs2
                 else:
                     kurs = kursRUB
-                str_message += f'{cur} to {currencyRUB}: {kurs:0.2f}\n'
-            bot.send_message(message.chat.id, str_message)
+                str_message_1 += f'{cur} to {currencyRUB}: {kurs:0.2f}\n'
+                str_message_1000 += f'{cur} to {currencyRUB} (1000 руб.): {1000 / kurs:0.0f}\n'
+            bot.send_message(message.chat.id, str_message + str_message_1000)
     else:
         bot.send_message(message.chat.id, f'Ошибка {result.status_code}')
 
